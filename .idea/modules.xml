@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/PLI32Exercise1.iml" filepath="$PROJECT_DIR$/PLI32Exercise1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pli32E1EqualPriority/pli32E1EqualPriority.iml" filepath="$PROJECT_DIR$/pli32E1EqualPriority/pli32E1EqualPriority.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pli32E1PriorityA/pli32E1PriorityA.iml" filepath="$PROJECT_DIR$/pli32E1PriorityA/pli32E1PriorityA.iml" />
+    </modules>
+  </component>
+</project>
