@@ -96,8 +96,8 @@ public class Simulate {
                 substring(customers.get(customers.size() - 1)[6].lastIndexOf("|") + 1));
 
         long totalTime = Duration.between(firstCustomerArrived.toInstant(), lastCustomerServed.toInstant()).toMinutes();
-        long cashierABusyTime = ca.getBusyHour();
-        long cashierBBusyTime = cb.getBusyHour();
+        long crABusyTime = ca.getBusyHour();
+        long cBBusyTime = cb.getBusyHour();
 
         // print a header
         System.out.printf("%s\t%s\t%s\t\t%s\t\t\t%s\t\t%s\t\t%s\t\t%s%n",
@@ -121,10 +121,15 @@ public class Simulate {
         // finally, print statistics for customers and cashiers
         System.out.println("\n***************** Statistics *****************");
         System.out.println("\nTotal duration: " + (totalTime / 60) + " hours and " + (totalTime % 60) + " minutes");
-        System.out.printf("%n%s%.1f%s%n", "CashierA was occupied ", (double) cashierABusyTime / totalTime * 100, "% of the time");
-        System.out.printf("%s%.1f%s%n", "CashierB was occupied ", (double) cashierBBusyTime / totalTime * 100, "% of the time");
-        System.out.printf("%n%.1f%s%n", (double) customersWaited/customers.size() * 100, "% of the customers had to wait in queue");
-        System.out.printf("%s%.1f%s%n", "Average waiting time of all customers: ", (double) totalWaitingTime/customers.size(), " minutes");
-        System.out.printf("%s%.1f%s%n", "Average waiting time for those who waited: ", (double) totalWaitingTime/customersWaited, " minutes");
+        System.out.printf("%n%s%.1f%s%n", "CashierA was occupied ",
+                (double) crABusyTime / totalTime * 100, "% of the time");
+        System.out.printf("%s%.1f%s%n", "CashierB was occupied ",
+                (double) cBBusyTime / totalTime * 100, "% of the time");
+        System.out.printf("%n%.1f%s%n", (double) customersWaited/customers.size() * 100,
+                "% of the customers had to wait in queue");
+        System.out.printf("%s%.1f%s%n", "Average waiting time of all customers: ",
+                (double) totalWaitingTime/customers.size(), " minutes");
+        System.out.printf("%s%.1f%s%n", "Average waiting time for those who waited: ",
+                (double) totalWaitingTime/customersWaited, " minutes");
     }
 }

@@ -3,8 +3,6 @@
     <output-path>$PROJECT_DIR$/out/artifacts/PLI32Exercise1_jar</output-path>
     <root id="archive" name="PLI32Exercise1.jar">
       <element id="module-output" name="PLI32Exercise1" />
-      <element id="module-output" name="pli32E1EqualPriority" />
-      <element id="module-output" name="pli32E1PriorityA" />
     </root>
   </artifact>
 </component>
