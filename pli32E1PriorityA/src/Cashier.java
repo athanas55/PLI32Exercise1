@@ -8,6 +8,7 @@ public abstract class Cashier implements Runnable {
     protected final BlockingQueue<Token> blockingQueue;
     protected final CountDownLatch countDownLatch;
     SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+    private long busyHour = 0;
 
     protected Cashier(BlockingQueue<Token> blockingQueue,
                       CountDownLatch countDownLatch) {
@@ -44,10 +45,10 @@ public abstract class Cashier implements Runnable {
                         " started serving customer " + (token.getNumber() + 1) +
                         " Service start time: " + servStart);
                 int serviceDuration = setServiceTime();
+                busyHour += serviceDuration;
                 Thread.sleep(serviceDuration * 100L);
 
                 countServed++;
-
                 // take the timestamp for the completion
                 // of the customer service by the cashier
                 long serviceEnd = serviceStart + serviceDuration * 60 * 1000L;
@@ -71,4 +72,8 @@ public abstract class Cashier implements Runnable {
     }
 
     public abstract int setServiceTime();
+
+    public long getBusyHour() {
+        return busyHour;
+    }
 }
