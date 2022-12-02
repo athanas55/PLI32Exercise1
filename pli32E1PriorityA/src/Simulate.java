@@ -25,7 +25,6 @@ public class Simulate {
 
         TokenVendingMachine tokenVendingMachine = new TokenVendingMachine(blockingQueue, CUSTOMERS, allCustomers);
         Thread tokenMachineThread = new Thread(tokenVendingMachine);
-        tokenMachineThread.start();
         CountDownLatch countDownLatch = new CountDownLatch(CUSTOMERS.get());
 
         // Here we have the Token consumers. We create 2 Cashiers
@@ -40,18 +39,17 @@ public class Simulate {
         threadA.setPriority(10);
         threadB.setPriority(6);
 
+        tokenMachineThread.start();
         threadA.start();
         threadB.start();
 
+        tokenMachineThread.join();
         threadB.join();
         threadA.join();
-        tokenMachineThread.join();
 
         System.out.println("\nBank closed for the day!");
 
-        System.out.println();
-
-        System.out.println("____________________________________________________________________________________________________________________________________");
+        System.out.println("\n____________________________________________________________________________________________________________________________________");
         System.out.println("****************************************************** printing statistics *********************************************************");
         try {
             printResults();
@@ -83,11 +81,11 @@ public class Simulate {
 
         long totalTime = Duration.between(firstCustomerArrived.toInstant(), lastCustomerServed.toInstant()).toMinutes();
 
-
+        // print a header
         System.out.printf("%s\t%s\t%s\t\t%s\t\t\t%s\t\t%s\t\t%s\t\t%s%n",
                 "Customer", "interArrival-time", "arrival-time", "Cashier",
                 "service-start", "Duration", "service-end", "waiting-time");
-
+        // iterate through customers to print the details for each one
         for (String[] customer : customers) {
             Date arrivalTime = new SimpleDateFormat("HH:mm:ss").parse(customer[2].
                     substring(customer[2].lastIndexOf("|") + 1));
@@ -97,7 +95,7 @@ public class Simulate {
             for (String s : customer) System.out.printf("%s\t\t\t", s.substring(s.lastIndexOf("|") + 1));
             System.out.printf("%d%n", waiting);
         }
-
+        // finally, print the total time for servicing all customers
         System.out.println("\nTotal duration: " + (totalTime / 60) + " hours and " + (totalTime % 60) + " minutes");
     }
 }

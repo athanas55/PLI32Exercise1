@@ -22,10 +22,8 @@ public class Simulate {
 
         // Create and start the vending Machine. The Machine will create
         // 100 token/day. Which will be served by the 2 Cashiers
-
         TokenVendingMachine tokenVendingMachine = new TokenVendingMachine(blockingQueue, CUSTOMERS, allCustomers);
         Thread tokenMachineThread = new Thread(tokenVendingMachine);
-        tokenMachineThread.start();
         CountDownLatch countDownLatch = new CountDownLatch(CUSTOMERS.get());
 
         // Here we have the Token consumers. We create 2 Cashiers
@@ -36,22 +34,21 @@ public class Simulate {
         Thread threadB = new Thread(cashierB);
 
         // we are setting equal priority between Cashiers
-        // so that choise of cashier is based on OS scheduler
+        // so that choice of cashier is based on OS scheduler
         threadA.setPriority(5);
         threadB.setPriority(5);
 
+        tokenMachineThread.start();
         threadA.start();
         threadB.start();
 
+        tokenMachineThread.join();
         threadB.join();
         threadA.join();
-        tokenMachineThread.join();
 
         System.out.println("\nBank closed for the day!");
 
-        System.out.println();
-
-        System.out.println("____________________________________________________________________________________________________________________________________");
+        System.out.println("\n____________________________________________________________________________________________________________________________________");
         System.out.println("****************************************************** printing statistics *********************************************************");
         try {
             printResults();
@@ -83,11 +80,11 @@ public class Simulate {
 
         long totalTime = Duration.between(firstCustomerArrived.toInstant(), lastCustomerServed.toInstant()).toMinutes();
 
-
+        // print the table header
         System.out.printf("%s\t%s\t%s\t\t%s\t\t\t%s\t\t%s\t\t%s\t\t%s%n",
                 "Customer", "interArrival-time", "arrival-time", "Cashier",
                 "service-start", "Duration", "service-end", "waiting-time");
-
+        // print the results
         for (String[] customer : customers) {
             Date arrivalTime = new SimpleDateFormat("HH:mm:ss").parse(customer[2].
                     substring(customer[2].lastIndexOf("|") + 1));
