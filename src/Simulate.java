@@ -65,8 +65,8 @@ public class Simulate {
 
         System.out.println("\nBank closed for the day!");
 
-        System.out.println("\n____________________________________________________________________________________________________________________________________");
-        System.out.println("****************************************************** printing statistics *********************************************************");
+        System.out.println("\n____________________________________________________________________________________________________________________________");
+        System.out.println("*************************************************** Bank service data ******************************************************");
         try {
             printResults(cashierA, cashierB);
         } catch (ParseException e) {
@@ -100,9 +100,22 @@ public class Simulate {
         long cBBusyTime = cb.getBusyHour();
 
         // print a header
-        System.out.printf("%s\t%s\t%s\t\t%s\t\t\t%s\t\t%s\t\t%s\t\t%s%n",
-                "Customer", "interArrival-time", "arrival-time", "Cashier",
-                "service-start", "Duration", "service-end", "waiting-time");
+        String[] header = new String[] {
+                "CustomerID",
+                "InterArrival",
+                "Arrived-at",
+                "Cashier",
+                "Serve-start",
+                "Duration",
+                "Serve-end",
+                "Waiting"};
+        for(String s: header)
+            System.out.printf("%-12s\t", s);
+        System.out.println();
+        for (int i = 0; i < header.length; i++)
+            System.out.printf("%-12s\t", "____________");
+        System.out.println();
+
         // iterate through customers to print the details for each one
         int customersWaited = 0;
         int totalWaitingTime = 0;
@@ -115,8 +128,9 @@ public class Simulate {
             if(waiting != 0)
                 customersWaited++;
             totalWaitingTime += waiting;
-            for (String s : customer) System.out.printf("%s\t\t\t", s.substring(s.lastIndexOf("|") + 1));
-            System.out.printf("%d%n", waiting);
+            for (String s : customer)
+                System.out.printf("%-12s\t", s.substring(s.lastIndexOf("|") + 1).trim());
+            System.out.printf("%-6d%n", waiting);
         }
         // finally, print statistics for customers and cashiers
         System.out.println("\n***************** Statistics *****************");
@@ -130,6 +144,6 @@ public class Simulate {
         System.out.printf("%s%.1f%s%n", "Average waiting time of all customers: ",
                 (double) totalWaitingTime/customers.size(), " minutes");
         System.out.printf("%s%.1f%s%n", "Average waiting time for those who waited: ",
-                (double) totalWaitingTime/customersWaited, " minutes");
+                (double) totalWaitingTime/customersWaited, " minutes\n");
     }
 }
