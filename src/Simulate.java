@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 
 public class Simulate {
-    private final static AtomicInteger CUSTOMERS = new AtomicInteger(100);
+    private final static AtomicInteger CUSTOMERS = new AtomicInteger(200);
     private static final ArrayList<Token> allCustomers = new ArrayList<>();
 
     public static void main(String[] args) throws InterruptedException {
