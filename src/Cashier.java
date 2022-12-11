@@ -7,7 +7,7 @@ import java.util.concurrent.CountDownLatch;
 public abstract class Cashier implements Runnable {
     protected final BlockingQueue<Token> blockingQueue;
     protected final CountDownLatch countDownLatch;
-    SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+    SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
     private long busyHour = 0;
 
     protected Cashier(BlockingQueue<Token> blockingQueue,

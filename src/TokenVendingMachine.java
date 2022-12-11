@@ -12,7 +12,7 @@ public class TokenVendingMachine implements Runnable {
     private final BlockingQueue<Token> blockingQueue;
     private final AtomicInteger customers;
     ArrayList<Token> allCustomers;
-    SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+    SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
 
     public TokenVendingMachine(BlockingQueue<Token> blockingQueue,
                                AtomicInteger customers,
@@ -33,9 +33,9 @@ public class TokenVendingMachine implements Runnable {
             token.setDescription("Customer" + (i + 1));
 
             long currentCustomerArrival;
-            // if this is the first token, then set time to 08:00:00
+            // if this is the first token, then set time to 08:00
             if (i == 0) {
-                String bankOpen = "08:00:00";
+                String bankOpen = "08:00";
                 try {
                     Date openHour = timeFormat.parse(bankOpen);
                     currentCustomerArrival = openHour.getTime();

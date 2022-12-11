@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 
 public class Simulate {
-    private final static AtomicInteger CUSTOMERS = new AtomicInteger(200);
+    private final static AtomicInteger CUSTOMERS = new AtomicInteger(100);
     private static final ArrayList<Token> allCustomers = new ArrayList<>();
 
     public static void main(String[] args) throws InterruptedException {
@@ -90,9 +90,9 @@ public class Simulate {
             customers.add(thisCustomer);
         }
 
-        Date firstCustomerArrived = new SimpleDateFormat("HH:mm:ss").parse(customers.get(0)[2].
+        Date firstCustomerArrived = new SimpleDateFormat("HH:mm").parse(customers.get(0)[2].
                 substring(customers.get(0)[2].lastIndexOf("|") + 1));
-        Date lastCustomerServed = new SimpleDateFormat("HH:mm:ss").parse(customers.get(customers.size() - 1)[6].
+        Date lastCustomerServed = new SimpleDateFormat("HH:mm").parse(customers.get(customers.size() - 1)[6].
                 substring(customers.get(customers.size() - 1)[6].lastIndexOf("|") + 1));
 
         long totalTime = Duration.between(firstCustomerArrived.toInstant(), lastCustomerServed.toInstant()).toMinutes();
@@ -120,9 +120,9 @@ public class Simulate {
         int customersWaited = 0;
         int totalWaitingTime = 0;
         for (String[] customer : customers) {
-            Date arrivalTime = new SimpleDateFormat("HH:mm:ss").parse(customer[2].
+            Date arrivalTime = new SimpleDateFormat("HH:mm").parse(customer[2].
                     substring(customer[2].lastIndexOf("|") + 1));
-            Date startService = new SimpleDateFormat("HH:mm:ss").parse(customer[4].
+            Date startService = new SimpleDateFormat("HH:mm").parse(customer[4].
                     substring(customer[4].lastIndexOf("|") + 1));
             long waiting = Duration.between(arrivalTime.toInstant(), startService.toInstant()).toMinutes();
             if(waiting != 0)
@@ -143,7 +143,7 @@ public class Simulate {
                 "% of the customers had to wait in queue");
         System.out.printf("%s%.1f%s%n", "Average waiting time of all customers: ",
                 (double) totalWaitingTime/customers.size(), " minutes");
-        System.out.printf("%s%.1f%s%n", "Average waiting time for those who waited: ",
+        System.out.printf("%s%.1f%s%n", "Average waiting time for those who had to wait: ",
                 (double) totalWaitingTime/customersWaited, " minutes\n");
     }
 }
