@@ -96,7 +96,7 @@ public class Simulate {
                 substring(customers.get(customers.size() - 1)[6].lastIndexOf("|") + 1));
 
         long totalTime = Duration.between(firstCustomerArrived.toInstant(), lastCustomerServed.toInstant()).toMinutes();
-        long crABusyTime = ca.getBusyHour();
+        long cABusyTime = ca.getBusyHour();
         long cBBusyTime = cb.getBusyHour();
 
         // print a header
@@ -136,7 +136,7 @@ public class Simulate {
         System.out.println("\n***************** Statistics *****************");
         System.out.println("\nTotal duration: " + (totalTime / 60) + " hours and " + (totalTime % 60) + " minutes");
         System.out.printf("%n%s%.1f%s%n", "CashierA was occupied ",
-                (double) crABusyTime / totalTime * 100, "% of the time");
+                (double) cABusyTime / totalTime * 100, "% of the time");
         System.out.printf("%s%.1f%s%n", "CashierB was occupied ",
                 (double) cBBusyTime / totalTime * 100, "% of the time");
         System.out.printf("%n%.1f%s%n", (double) customersWaited/customers.size() * 100,
